@@ -87,7 +87,7 @@ final class Application extends AbstractApplication
 
     private function disableXdebug(): void
     {
-        if (!\extension_loaded('xdebug')) {
+        if (!\extension_loaded('xdebug') || !function_exists('xdebug_disable')) {
             return;
         }
 
