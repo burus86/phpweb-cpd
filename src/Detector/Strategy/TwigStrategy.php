@@ -9,16 +9,21 @@
  */
 namespace PHPWEBCPD\Detector\Strategy;
 
-use FriendsOfTwig\Twigcs\Compatibility\TwigLexer;
 use FriendsOfTwig\Twigcs\Container;
+use FriendsOfTwig\Twigcs\TwigPort\TwigLexer;
+use Twig\Environment;
+use Twig\Lexer;
+use Twig\Loader\ArrayLoader;
+use Twig\Source;
 
 class TwigStrategy extends DefaultStrategy
 {
     protected function getTokens(string $buffer): array
     {
-        $container = new Container();
-        $twigTokens = $container['twig']->tokenize(
-            new \Twig\Source($buffer, 'src', '')
+        $twigEnvironment = new Environment(new ArrayLoader());
+        $twigEnvironment->setLexer(new Lexer($twigEnvironment));
+        $twigTokens = $twigEnvironment->tokenize(
+            new Source($buffer, 'src', '')
         );
         $numTokens = 0;
         $tokens = [];
@@ -44,6 +49,6 @@ class TwigStrategy extends DefaultStrategy
 
     protected function isVariableToken(array $token): bool
     {
-        return $token[0] === TwigLexer::STATE_VAR;
+        return isset($token[0]) ? $token[0] === TwigLexer::STATE_VAR : false;
     }
 }
