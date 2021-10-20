@@ -9,8 +9,8 @@
  */
 namespace PHPWEBCPD\Detector\Strategy;
 
-use Allocine\Twigcs\Compatibility\TwigLexer;
-use Allocine\Twigcs\Container;
+use FriendsOfTwig\Twigcs\Compatibility\TwigLexer;
+use FriendsOfTwig\Twigcs\Container;
 use PLUG\JavaScript\JLex;
 use PLUG\JavaScript\JLexBase;
 use PLUG\JavaScript\JTokenizer;
